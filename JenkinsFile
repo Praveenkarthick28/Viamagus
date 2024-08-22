@@ -3,9 +3,7 @@ pipeline {
     stages {
         stage('Pull Code from Git') {
             steps {
-                git 'https://github.com/your-repo/react-todo-add.git'
-                sh 'cp -r * /opt/checkout/react-todo-add'
-            }
+                sh 'echo "checkout done"'            }
         }
         stage('Build') {
             steps {
@@ -16,6 +14,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
+                sh 'cd /opt/deployment/react'
                 sh 'pm2 serve build 3000 --name "react-todo-app"'
             }
         }
