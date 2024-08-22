@@ -15,7 +15,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh 'cd /opt/deployment/react'
-                sh 'pm2 serve /opt/deployment/react 3000 --name "react-todo-app"'
+                sh 'pm2 serve /opt/deployment/react 3000 --name "react-todo-app -f"'
             }
         }
     }
