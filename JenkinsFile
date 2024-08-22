@@ -1,0 +1,28 @@
+pipeline {
+    agent any
+    stages {
+        stage('Stop Deployment') {
+            steps {
+                sh 'pm2 stop all'
+            }
+        }
+        stage('Pull Code from Git') {
+            steps {
+                git 'https://github.com/your-repo/react-todo-add.git'
+                sh 'cp -r * /opt/checkout/react-todo-add'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'npm install'
+                sh 'npm run build'
+                sh 'cp -r build/* /opt/deployment/react'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh 'pm2 start /opt/deployment/react'
+            }
+        }
+    }
+}
