@@ -18,5 +18,13 @@ pipeline {
                 sh 'pm2 serve /opt/deployment/react 3000 --name "react-todo-app -f"'
             }
         }
+
+        stage('Upload to S3') {
+            steps {
+                withAWS(credentials: 'SECRET') {
+                    s3Upload(bucket: 'viamagous', file: '/opt/deployment/react')
+                }
+            }
+        }
     }
 }
