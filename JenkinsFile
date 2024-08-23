@@ -21,8 +21,8 @@ pipeline {
 
         stage('Upload to S3') {
             steps {
-                withAWS(credentials: 'SECRET') {
-                    s3Upload(bucket: 'viamagous', file: '/opt/deployment/react')
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'SECRET']]) {
+                    sh 'aws s3 cp /opt/deployment/react s3://viamagus/ --recursive'
                 }
             }
         }
